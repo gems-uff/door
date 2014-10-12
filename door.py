@@ -1,3 +1,4 @@
+import time
 import RPi.GPIO as GPIO
 
 DOOR = 17 # GPIO id (BCM) to control the door
@@ -14,4 +15,4 @@ def open_door():
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DOOR, GPIO.OUT, initial=GPIO.LOW)
 
-open_door
+open_door()

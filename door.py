@@ -30,8 +30,11 @@ if RASPBERRY_PI:
     GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=open_door, bouncetime=200)
 
-code = input()
-open_door()
+try:
+    code = input()
+    open_door()
+except KeyboardInterrupt:
+    sys.exit()
 
 if RASPBERRY_PI:
     GPIO.cleanup(DOOR)

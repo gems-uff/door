@@ -9,7 +9,7 @@ DOOR = 17 # GPIO id (BCM) to control the door
 BUTTON = 23 # GPIO id (BCM) to listen to the button
 OPEN_INTERVAL = 1 # Time interval sending open signal (in seconds)
 
-def open_door():
+def open_door(channel = None):
     if RASPBERRY_PI:
         GPIO.output(DOOR, GPIO.HIGH)
     else:

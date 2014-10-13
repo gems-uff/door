@@ -27,8 +27,8 @@ if RASPBERRY_PI:
     GPIO.setmode(GPIO.BCM)
     
     GPIO.setup(DOOR, GPIO.OUT, initial=GPIO.LOW)
-    GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=open_door, bouncetime=1000)
+    GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.add_event_detect(BUTTON, GPIO.FALLING, callback=open_door, bouncetime=300)
 
 try:
     while True:

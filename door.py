@@ -25,11 +25,10 @@ def open_door(channel = None):
 
 if RASPBERRY_PI:
     GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
     
     GPIO.setup(DOOR, GPIO.OUT, initial=GPIO.LOW)
     GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=open_door, bouncetime=200)
+    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=open_door, bouncetime=1000)
 
 try:
     while True:

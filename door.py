@@ -6,22 +6,33 @@ except ImportError:
     RASPBERRY_PI = False
 
 DOOR = 17 # GPIO id (BCM) to control the door
+BUTTON = 23 # GPIO id (BCM) to listen to the button
 OPEN_INTERVAL = 1 # Time interval sending open signal (in seconds)
 
 def open_door():
     if RASPBERRY_PI:
         GPIO.output(DOOR, GPIO.HIGH)
-        time.sleep(OPEN_INTERVAL)
+    else:
+        print('Opening the door...', end='')
+
+    time.sleep(OPEN_INTERVAL)
+
+    if RASPBERRY_PI:
         GPIO.output(DOOR, GPIO.LOW)
     else:
-        print('Opening the door.')
+        print(' ok.')
 
 if RASPBERRY_PI:
-    # Setup GPIO 17 (BCM) for opening the door
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
+    
     GPIO.setup(DOOR, GPIO.OUT, initial=GPIO.LOW)
+    GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.add_event_detect(BUTTON, GPIO.RISING, callback=open_door, bouncetime=200)
 
+code = input()
 open_door()
 
-if RASPBERRY_PI: GPIO.cleanup(DOOR)
+if RASPBERRY_PI:
+    GPIO.cleanup(DOOR)
+    GPIO.cleanup(BUTTON)

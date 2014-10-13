@@ -36,9 +36,8 @@ try:
         code = input()
         open_door()
 except KeyboardInterrupt:
+    pass
+finally:
     if RASPBERRY_PI:
-        GPIO.cleanup(DOOR)
-        GPIO.cleanup(BUTTON)
         GPIO.remove_event_detect(BUTTON)
-    sys.exit()
-
+        GPIO.cleanup()
